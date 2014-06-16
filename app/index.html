@@ -22,14 +22,8 @@
     <div id="sidebar">
       <h1>AGH buildings</h1>
       <input type="text" ng-model="query" placeholder="type to search..."/>
-      <ul id="no-query" ng-if="!query">
-        <li ng-repeat="building in buildings | orderBy:['letter','number']" ng-click="building.showOnMap()">
-          <a href="#">{{ building.name }}</a>
-        </li>
-      </ul>
-      <ul id="query" ng-if="query">
-        <li ng-repeat="building in buildings | filter:{search:query} | orderBy:['letter','number']" ng-click="building.showOnMap()">
-          <a href="#" class="large" ng-if="building.name2">{{ building.name2 }}</a>
+      <ul id="no-query">
+        <li ng-repeat="building in buildings | filter:{name:query} | orderBy:'name'" ng-click="building.polygon.openPopup()">
           <a href="#">{{ building.name }}</a>
         </li>
       </ul>
