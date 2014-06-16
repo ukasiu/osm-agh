@@ -2,7 +2,7 @@ body {
   padding: 0;
   margin: 0;
 }
-html, body, #map, #container {
+html, body, #map, #sidebar {
   height: 100%;
   font: 10pt 'Droid Sans', sans-serif;
 }
@@ -11,7 +11,7 @@ html, body, #map, #container {
   float:left;
 }
 #sidebar {
-  width:20%; 
+  width:auto; 
   float:left; 
   overflow:scroll;
   padding: 20px;

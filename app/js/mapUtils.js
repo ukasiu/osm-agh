@@ -19,7 +19,6 @@ mapUtils.loadAndParseOverpassJSON = function (map, query, callbackNode, callback
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4 ) {
       if(xmlhttp.status == 200){
-        console.log(xmlhttp.responseText);
         mapUtils.parseOverpassJSON(JSON.parse(xmlhttp.responseText), callbackNode, callbackWay, callbackRelation);
       }
     }
