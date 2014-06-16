@@ -3,8 +3,11 @@
 // 
 var mapUtils = {};
 
+mapUtils.osm_layer_addr = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+mapUtils.mapbox_layer_addr = 'https://{s}.tiles.mapbox.com/v3/ukasiu.ihb1if8o/{z}/{x}/{y}.png';
 mapUtils.attr_osm = 'Map data &copy; <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors';
 mapUtils.attr_overpass = 'POI via <a href="http://www.overpass-api.de/">Overpass API</a>';
+mapUtils.attr_mapbox = '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>';
 
 L.LatLngBounds.prototype.toOverpassBBoxString = function (){
   var a = this._southWest,
