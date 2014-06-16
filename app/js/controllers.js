@@ -35,4 +35,13 @@ angular.module('myApp.controllers', [])
 
     mapUtils.loadAndParseOverpassJSON(map, '[out:json];(way["addr:housename"~"^([ABCDSUZ]|DS)[0-9]+$"]({{bbox}}););(._;>;);out;', null, handleWay, null);
 
+    // and routing
+
+    L.Routing.control({
+          waypoints: [
+              L.latLng(50.0661, 19.9149),
+              L.latLng(50.06836, 19.90104)
+          ]
+      }).addTo(map);
+
 }]);
