@@ -6,11 +6,26 @@ var mapUtils = {};
 mapUtils.attr_osm = 'Map data &copy; <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors';
 mapUtils.attr_overpass = 'POI via <a href="http://www.overpass-api.de/">Overpass API</a>';
 
+L.LatLngBounds.prototype.toOverpassBBoxString = function (){
+  var a = this._southWest,
+      b = this._northEast;
+  return [a.lat, a.lng, b.lat, b.lng].join(",");
+};
+
 mapUtils.loadAndParseOverpassJSON = function (map, query, callbackNode, callbackWay, callbackRelation) {
   var query = query.replace(/{{bbox}}/g, map.getBounds().toOverpassBBoxString());
-  $.post('http://www.overpass-api.de/api/interpreter', {data: query}, function (json) {
-    mapUtils.parseOverpassJSON(json, callbackNode, callbackWay, callbackRelation);
-  }, 'json');
+  xmlhttp = new XMLHttpRequest();
+
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 ) {
+      if(xmlhttp.status == 200){
+        console.log(xmlhttp.responseText);
+        mapUtils.parseOverpassJSON(JSON.parse(xmlhttp.responseText), callbackNode, callbackWay, callbackRelation);
+      }
+    }
+  };
+  xmlhttp.open("GET","http://www.overpass-api.de/api/interpreter?data=" + encodeURIComponent(query),true);
+  xmlhttp.send();
 };
 
 mapUtils.parseOverpassJSON = function (overpassJSON, callbackNode, callbackWay, callbackRelation) {
