@@ -28,7 +28,7 @@ angular.module('myApp.controllers', [])
     // now go to overpass turbo and prepare query
 
     var handleWay = function(way) {
-      //console.log(way.id);
+      if(!way.tags || !way.tags['addr:housename']) return;
       way.name = way.tags['addr:housename'];
       var matches = /([A-Z]{1,2})(\d+)/.exec(way.name);
       way.letter = matches[1];
@@ -52,7 +52,15 @@ angular.module('myApp.controllers', [])
       });
     };
 
-    mapUtils.loadAndParseOverpassJSON(map, '[out:json];(way["addr:housename"~"^([ABCDSUZ]|DS)[0-9]+$"]({{bbox}}););(._;>;);out;', null, handleWay, null);
+    var handleRelation = function(relation) {
+      relation.members.forEach(function (way) {
+        if(way.role == 'inner') return;
+        way.obj.tags = relation.tags;
+        handleWay(way.obj);
+      });
+    };
+
+    mapUtils.loadAndParseOverpassJSON(map, '[out:json];(way["addr:housename"~"^([ABCDSUZ]|DS)[0-9]+$"]({{bbox}});relation["addr:housename"~"^([ABCDSUZ]|DS)[0-9]+$"]({{bbox}}););(._;>;);out;', null, handleWay, handleRelation);
 
     var preparePopupText = function(building) {
       if(!building.tags) return building.name;
