@@ -18,25 +18,14 @@
 </head>
 <body ng-controller="MapViewCtrl">
   <div id="container">
-    
-    <div id="sidebar">
-      <h1>AGH buildings</h1>
-      <input type="text" ng-model="query" placeholder="type to search..."/>
-      <ul id="no-query">
-        <li ng-repeat="building in buildings | filter:{name:query} | orderBy:'name'" ng-click="building.polygon.openPopup()">
-          <a href="#">{{ building.name }}</a>
-        </li>
-      </ul>
-    </div>
-    <div id="map"></div>
+
   </div>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/leaflet/dist/leaflet.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
-  <script src="js/mapUtils.js"></script>
+
 </body>
 </html>
