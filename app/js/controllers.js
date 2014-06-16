@@ -24,7 +24,7 @@ angular.module('myApp.controllers', [])
     }();
 
     map.addControl(map.getControl());
-    osm_layer.addTo(map);
+    mapbox_layer.addTo(map);
     // now go to overpass turbo and prepare query
 
     var handleWay = function(way) {
