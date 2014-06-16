@@ -30,8 +30,12 @@ angular.module('myApp.controllers', [])
     var handleWay = function(way) {
       //console.log(way.id);
       way.name = way.tags['addr:housename'];
+      var matches = /([A-Z]{1,2})(\d+)/.exec(way.name);
+      way.letter = matches[1];
+      way.number = parseInt(matches[2]);
+
       way.polygon = L.polygon(way.geometry.coordinates,{ color: '#000', weight: 3 }).addTo(map);
-      way.polygon.bindPopup(way.name);
+      way.polygon.bindPopup(preparePopupText(way));
       $scope.$apply(
         $scope.buildings.push(way)
       );
@@ -49,5 +53,11 @@ angular.module('myApp.controllers', [])
     };
 
     mapUtils.loadAndParseOverpassJSON(map, '[out:json];(way["addr:housename"~"^([ABCDSUZ]|DS)[0-9]+$"]({{bbox}}););(._;>;);out;', null, handleWay, null);
+
+    var preparePopupText = function(building) {
+      if(!building.tags) return building.name;
+      return "<h2>" + building.name + "</h2>\n" +
+        (building.tags.name && building.tags.name !== building.name ? "<h3>" + building.tags.name + "</h3>" : ""); 
+    };
 
 }]);

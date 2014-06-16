@@ -19,7 +19,7 @@
   <div id="map"></div>
   <div id="sidebar">
     <ul>
-      <li ng-repeat="building in buildings | orderBy:'name':false">
+      <li ng-repeat="building in buildings | orderBy:'number':false | orderBy:'letter'">
         <a ng-click="building.showOnMap()">{{ building.name }}</a>
       </li>
     </ul>
