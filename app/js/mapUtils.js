@@ -1,0 +1,47 @@
+// 
+// Credits for this go to https://github.com/simon04/POImap
+// 
+var mapUtils = {};
+
+mapUtils.loadAndParseOverpassJSON = function (map, query, callbackNode, callbackWay, callbackRelation) {
+  var query = query.replace(/{{bbox}}/g, map.getBounds().toOverpassBBoxString());
+  $.post('http://www.overpass-api.de/api/interpreter', {data: query}, function (json) {
+    mapUtils.parseOverpassJSON(json, callbackNode, callbackWay, callbackRelation);
+  }, 'json');
+};
+
+mapUtils.parseOverpassJSON = function (overpassJSON, callbackNode, callbackWay, callbackRelation) {
+  var nodes = {}, ways = {};
+  for (var i = 0; i < overpassJSON.elements.length; i++) {
+    var p = overpassJSON.elements[i];
+    switch (p.type) {
+      case 'node':
+        p.coordinates = [p.lat, p.lon];
+        p.geometry = {type: 'Point', coordinates: p.coordinates};
+        nodes[p.id] = p;
+        // p has type=node, id, lat, lon, tags={k:v}, coordinates=[lon,lat], geometry
+        if (typeof callbackNode === 'function') callbackNode(p);
+        break;
+      case 'way':
+        p.coordinates = p.nodes.map(function (id) {
+          return nodes[id].coordinates;
+        });
+        p.geometry = {type: 'LineString', coordinates: p.coordinates};
+        ways[p.id] = p;
+        // p has type=way, id, tags={k:v}, nodes=[id], coordinates=[[lon,lat]], geometry
+        if (typeof callbackWay === 'function') callbackWay(p);
+        break;
+      case 'relation':
+        if (!p.members) {
+          console.log('Empty relation', p);
+          break;
+        }
+        p.members.map(function (mem) {
+          mem.obj = (mem.type == 'way' ? ways : nodes)[mem.ref];
+        });
+        // p has type=relaton, id, tags={k:v}, members=[{role, obj}]
+        if (typeof callbackRelation === 'function') callbackRelation(p);
+        break;
+    }
+  }
+};
