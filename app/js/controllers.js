@@ -20,6 +20,17 @@ angular.module('myApp.controllers', [])
       $scope.$apply(
         $scope.buildings.push(way)
       );
+      way.showOnMap = function() {
+        way.polygon.openPopup();
+        map.panTo(way.polygon.getBounds().getCenter());
+        if(map.getZoom() < 17) map.setZoom(17);
+      }
+      way.polygon.on('popupclose', function() {
+        way.polygon.setStyle({ color: 'black' });
+      });
+      way.polygon.on('popupopen', function() {
+        way.polygon.setStyle({ color: 'red' });
+      });
     };
 
     mapUtils.loadAndParseOverpassJSON(map, '[out:json];(way["addr:housename"~"^([ABCDSUZ]|DS)[0-9]+$"]({{bbox}}););(._;>;);out;', null, handleWay, null);

@@ -19,8 +19,8 @@
   <div id="map"></div>
   <div id="sidebar">
     <ul>
-      <li ng-repeat="building in buildings">
-        {{ building.name }}
+      <li ng-repeat="building in buildings | orderBy:'name':false">
+        <a ng-click="building.showOnMap()">{{ building.name }}</a>
       </li>
     </ul>
   </div>

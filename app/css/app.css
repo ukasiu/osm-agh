@@ -11,8 +11,7 @@ html, body, #map, #sidebar {
   float:left;
 }
 #sidebar {
-  width:auto; 
+  width:20%;
   float:left; 
   overflow:scroll;
-  padding: 20px;
 }
