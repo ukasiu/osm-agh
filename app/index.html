@@ -15,16 +15,21 @@
   <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
-
+<body ng-controller="MapViewCtrl">
+  <div id="map"></div>
+  <div id="sidebar">
+    <ul>
+      <li ng-repeat="building in buildings">
+        {{ building.name }}
+      </li>
+    </ul>
+  </div>
 
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
   <script src="js/mapUtils.js"></script>
   <script src="bower_components/leaflet/dist/leaflet.js"></script>
 </body>

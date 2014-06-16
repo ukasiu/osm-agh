@@ -3,6 +3,9 @@
 // 
 var mapUtils = {};
 
+mapUtils.attr_osm = 'Map data &copy; <a href="http://openstreetmap.org/">OpenStreetMap</a> contributors';
+mapUtils.attr_overpass = 'POI via <a href="http://www.overpass-api.de/">Overpass API</a>';
+
 mapUtils.loadAndParseOverpassJSON = function (map, query, callbackNode, callbackWay, callbackRelation) {
   var query = query.replace(/{{bbox}}/g, map.getBounds().toOverpassBBoxString());
   $.post('http://www.overpass-api.de/api/interpreter', {data: query}, function (json) {
