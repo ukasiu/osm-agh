@@ -41,10 +41,22 @@ ul {
   display: block;
   width:305px;
 }
-ul li {
+ul#no-query li {
   text-align:center;
   width:45px;
   height: 18px;
+}
+
+ul#query li {
+  width: 290px;
+  height: auto;
+}
+
+.large {
+  font-size: 1.4em;
+}
+
+ul li {
   float:left;
   padding:5px;
   margin: 3px;
