@@ -4,7 +4,7 @@
 }
 html, body, #map, #sidebar,#container {
   height: 100%;
-  font: 10pt 'Century Gothic', sans-serif;
+  font: 10pt 'Muli', 'Century Gothic', sans-serif;
 }
 #container
 {
