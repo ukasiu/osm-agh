@@ -8,8 +8,23 @@ angular.module('myApp.controllers', [])
 
     var agh_center = L.latLng(50.0661, 19.9149); // take it from osm.org
     var map = L.map('map').setView(agh_center, 15);
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: [mapUtils.attr_osm, mapUtils.attr_overpass].join(', ')}).addTo(map);
+    var osm_layer = new L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: [mapUtils.attr_osm, mapUtils.attr_overpass].join(', ')});
+    var mapbox_layer = new L.tileLayer('https://{s}.tiles.mapbox.com/v3/ukasiu.ihb1if8o/{z}/{x}/{y}.png', {
+        attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+    });
 
+    map.getControl = function() {
+      var layers = new L.Control.Layers({
+        "OSM": osm_layer,
+        "MapBox": mapbox_layer
+      });
+      return function() {
+        return layers;
+      };
+    }();
+
+    map.addControl(map.getControl());
+    osm_layer.addTo(map);
     // now go to overpass turbo and prepare query
 
     var handleWay = function(way) {
