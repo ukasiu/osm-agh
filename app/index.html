@@ -16,13 +16,18 @@
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body ng-controller="MapViewCtrl">
-  <div id="map"></div>
-  <div id="sidebar">
-    <ul>
-      <li ng-repeat="building in buildings | orderBy:['letter','number']">
-        <a ng-click="building.showOnMap()">{{ building.name }}</a>
-      </li>
-    </ul>
+  <div id="container">
+    
+    <div id="sidebar">
+      <h1>AGH buildings</h1>
+      <input type="text" ng-model="query" placeholder="type to search..."/>
+      <ul>
+        <li ng-repeat="building in buildings | filter:{name:query} | orderBy:['letter','number']" ng-click="building.showOnMap()">
+          <a href="#">{{ building.name }}</a>
+        </li>
+      </ul>
+    </div>
+    <div id="map"></div>
   </div>
 
   <script src="bower_components/angular/angular.js"></script>

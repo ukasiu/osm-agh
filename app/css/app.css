@@ -1,17 +1,64 @@
-body {
+* {
   padding: 0;
   margin: 0;
 }
-html, body, #map, #sidebar {
+html, body, #map, #sidebar,#container {
   height: 100%;
-  font: 10pt 'Droid Sans', sans-serif;
+  font: 10pt 'Century Gothic', sans-serif;
+}
+#container
+{
+    box-sizing: border-box;
 }
 #map {
-  width: 80%; 
-  float:left;
+  border-left: 15px solid #00bee0;
+  overflow:hidden;
 }
 #sidebar {
-  width:20%;
-  float:left; 
-  overflow:scroll;
+  float:left;
+  width:360px;
+  background: #00a6c4;
+}
+h1 {
+  margin:30px 30px;
+  color:#fff;
+  /*font-weight: none;*/
+}
+input[type=text] {
+  width:290px;
+  margin:30px auto;
+  display:block;
+  border: none;
+  color:#00bee0;
+  background: #fff;
+  padding:5px;
+  height:25px;
+}
+ul {
+  list-style-type: none;
+  padding:0;
+  margin:0 auto;
+  display: block;
+  width:305px;
+}
+ul li {
+  text-align:center;
+  width:45px;
+  height: 18px;
+  float:left;
+  padding:5px;
+  margin: 3px;
+  font-size: 16px;
+  background: #00bee0;
+}
+ul li:hover {
+  background: #fff;
+}
+ul li:hover a{
+  color: #000;
+}
+a {
+  /*font-weight: bold;*/
+  color:#fff;
+  text-decoration: none;
 }
