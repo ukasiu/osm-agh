@@ -14,17 +14,10 @@ L.LatLngBounds.prototype.toOverpassBBoxString = function (){
 
 mapUtils.loadAndParseOverpassJSON = function (map, query, callbackNode, callbackWay, callbackRelation) {
   var query = query.replace(/{{bbox}}/g, map.getBounds().toOverpassBBoxString());
-  xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 ) {
-      if(xmlhttp.status == 200){
-        mapUtils.parseOverpassJSON(JSON.parse(xmlhttp.responseText), callbackNode, callbackWay, callbackRelation);
-      }
-    }
-  };
-  xmlhttp.open("GET","http://www.overpass-api.de/api/interpreter?data=" + encodeURIComponent(query),true);
-  xmlhttp.send();
+  
+  $.post('http://www.overpass-api.de/api/interpreter', {data: query}, function(json) {
+    mapUtils.parseOverpassJSON(json,callbackNode,callbackWay,callbackRelation);
+  },'json');
 };
 
 mapUtils.parseOverpassJSON = function (overpassJSON, callbackNode, callbackWay, callbackRelation) {
