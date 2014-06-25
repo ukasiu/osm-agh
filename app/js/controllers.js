@@ -31,7 +31,8 @@ angular.module('myApp.controllers', [])
       if(!way.tags || !way.tags['addr:housename']) return;
       way.name = way.tags['addr:housename'];
       way.name2 = way.tags.name ? way.tags.name : "";
-      way.search = way.name + " " + way.name2;
+      way.short_name = way.tags.short_name ? way.tags.short_name : "";
+      way.search = way.name + " " + way.name2 + " " + way.short_name;
       var matches = /([A-Z]{1,2})(\d+)/.exec(way.name);
       way.letter = matches[1];
       way.number = parseInt(matches[2]);
